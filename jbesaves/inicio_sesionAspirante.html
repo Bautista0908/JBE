@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Iniciar Sesión</title>
+  <style>
+    /* 🎨 Fondo general */
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background-color: #e9f8f1; /* verde muy claro */
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* 🧱 Contenedor del formulario */
+    .login-content {
+      background-color: #ffffff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      border-top: 5px solid #00a86b;
+      animation: aparecer 0.4s ease;
+    }
+
+    /* ✨ Animación */
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(-15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 📝 Título */
+    .login-content h2 {
+      color: #00a86b;
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+
+    /* 📋 Campos */
+    .form-group {
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #cceede;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: 0.3s ease;
+    }
+
+    .form-group input:focus {
+      border-color: #00a86b;
+      box-shadow: 0 0 5px rgba(0, 168, 107, 0.2);
+      outline: none;
+    }
+
+    /* 🟢 Botón */
+    .submit-btn {
+      background-color: #00a86b;
+      color: white;
+      padding: 12px;
+      border: none;
+      width: 100%;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      font-size: 15px;
+    }
+
+    .submit-btn:hover {
+      background-color: #00915e;
+      transform: scale(1.02);
+    }
+
+    /* 📎 Texto inferior */
+    p {
+      font-size: 14px;
+      color: #333;
+      margin-top: 15px;
+    }
+
+    a {
+      color: #00a86b;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-content">
+    <h2>Iniciar Sesión</h2>
+    <form id="form_login" method="POST" action="api/api_aspirantes.php">
+      <div class="form-group">
+      <input type="email" placeholder="Correo electrónico" required name="email">
+      </div>
+      <div class="form-group">
+      <input type="password" placeholder="Contraseña" required name="password">
+      </div>
+      <button type="submit" class="submit-btn">Entrar</button>
+      <p>¿No tienes cuenta?
+        <a href="./registro.html">Crear cuenta</a>
+      </p>
+    </form>
+  </div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("form_login");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // 🔹 Obtén los datos directamente del formulario
+    const data = {
+      email: form.email.value.trim(),
+      password: form.password.value
+    };
+
+    try {
+      const response = await fetch("api/api_aspirantes.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      const text = await response.text();
+      console.log("🧩 Respuesta cruda del servidor:", text);
+
+      const result = JSON.parse(text);
+      if (result.success) {
+        alert("✅ Inicio de sesión exitoso");
+        window.location.href = "index.html";
+      } else {
+        alert("❌ " + (result.error || "Credenciales incorrectas"));
+      }
+
+    } catch (error) {
+      alert("⚠️ Error de conexión con el servidor.");
+      console.error("Error:", error);
+    }
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Oportunidades Laborales</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+
+<body>
+
+  <div class="inicio_sesion-derecha">
+  </div>
+
+  <div class="registro-derecha">
+    <button class="registrarse" onclick="abrirModalSeleccion()">Iniciar Sesion</button>
+    <button class="registrarse" onclick="abrirModalRegistro()">Registrarse</button>
+  </div>
+
+  <header>
+    <div class="buttons">
+      <a href="index.html">
+        <button class="btn">JBE</button>
+      </a>
+    </div>
+    <div class="nor">
+      <a class="gtn" href="https://www.youtube.com/watch?v=QYdK_Vp9nkI&ab_channel=SecuenTales" target="_blank">¿Listo
+        para dejar de buscar y empezar a encontrar?</a>
+      <a class="gtn" href="//www.youtube.com/watch?v=P06OA9nNJFg&ab_channel=ModoGuerraClub" target="_blank">¿Te imaginás
+        despertarte con ganas un lunes? </a>
+    </div>
+  </header>
+
+  <main>
+    <h1 class="JBE">JBEjob - TRABAJOS EN URUGUAY</h1>
+    <h2>Oportunidades laborales</h2>
+    <div style="
+    max-width: 900px;
+    margin: auto;
+    ">
+      <p>Nuestro objetivo es crear una plataforma que sirva como puente entre exalumnos, personas desempleadas y jóvenes
+        sin experiencia o con recursos limitados, brindándoles oportunidades para acceder al mundo laboral y facilitar
+        su inserción en el mercado de trabajo.</p>
+    </div>
+
+    <div class="buttons">
+      <a href="empleos.html">
+        <button class="etn">Empleos</button>
+      </a>
+
+      <a href="llamados.html">
+        <button class="etn">Llamados</button>
+      </a>
+    </div>
+  </main>
+
+  <div id="Seleccion" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModal()">❌</span>
+      <h3 style="color: rgb(85, 83, 83);">Seleccionar</h3>
+      <form id="form_seleccion" class="botones-modal">
+        <a type="submit" href="./inicio_sesionAspirante.html" class="submit-btn">Aspirante</a>
+        <a type="button" href="./inicio_sesionEmpresa.html" class="submit-btn">Empresa</a>
+      </form>
+      <br>
+    </div>
+  </div>
+
+  
+  <div id="registrar" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModal()">❌</span>
+      <h3 style="color: rgb(85, 83, 83);">Seleccionar</h3>
+      <form id="form_seleccion" class="botones-modal">
+        <a type="submit" href="./registrarseAspirante.html" class="submit-btn">Registrar Aspirante</a>
+        <a type="submit" href="./registrarEmpresa.html" class="submit-btn">Registrar Empresa</a>
+      </form>
+      <br>
+    </div>
+  </div>
+
+  <div id="registroModal" class="modal">
+    <div class="modal-content" >
+      <span class="close" onclick="cerrarModal()">&times;</span>
+      <h3 style="color: rgb(85, 83, 83);">Crear Cuenta</h3>
+      <form id="form_registro">
+        <div class="form-group">
+          <input type="text" placeholder="Nombre" required name="nombre" id="nombre">
+        </div>        <div class="form-group">
+          <input type="text" placeholder="Apellido" required name="apellido" id="apellido">
+        </div>
+        <div class="form-group">
+          <input type="password" placeholder="Contraseña" required name="password" id="password">
+        </div>
+        <div class="form-group">
+          <input type="email" placeholder="Correo electrónico" required name="email" id="email">
+        </div>
+        <div class="form-group">
+          <input type="tel" placeholder="Número de teléfono" required name="telefono" id="telefono">
+        </div>
+        <button type="submit" class="submit-btn">Registrarse</button>
+      </form>
+      <br>
+    </div>
+  </div>
+
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModal()">&times;</span>
+      <h3 style="color: rgb(85, 83, 83);">Iniciar Sesiòn</h3>
+      <form>
+        <div class="form-group">
+          <input type="email" placeholder="Correo electrónico" required>
+        </div>
+        <div class="form-group">
+          <input type="password" placeholder="Contraseña" required>
+        </div>
+        <button type="submit" class="submit-btn">Ingresar</button>
+      </form>
+      <br>
+    </div>
+  </div>
+
+</body>
+
+</html>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    function abrirModal() {
+      document.getElementById('registroModal').style.display = 'block';
+    }
+
+    // function redirigirLoginAspirante() {
+    //   location.href = "inicio_sesionAspirante.html"
+    // }
+
+    // function redirigirLoginEmpresa() {
+    //   location.href = "inicio_sesionEmpresa.html"
+    // }
+
+    function abrirModalLogin() {
+      document.getElementById('loginModal').style.display = 'block';
+    }
+
+    function abrirModalSeleccion() {
+      document.getElementById('Seleccion').style.display = 'block';
+    }
+
+    function abrirModalRegistro(){
+      document.getElementById("registrar").style.display = 'block';
+    }
+    function generarModal() {
+      let htmlModal = `<div class="modal">
+        <h3>Login de aspirante</h3>
+        <p`;
+    }
+
+    window.abrirModal = abrirModal; // Para que onclick pueda usarlo globalmente
+    window.abrirModalLogin = abrirModalLogin;
+    window.abrirModalSeleccion = abrirModalSeleccion;
+    window.cerrarModal = cerrarModal;
+    window.abrirModalRegistro = abrirModalRegistro;
+
+    window.onclick = function (event) {
+      let modal = document.getElementById('registroModal');
+      let modalLogin = document.getElementById('loginModal');
+      if (event.target == modal) {
+        modal.style.display = "none";
+      } else if (event.target == modalLogin) {
+        modalLogin.style.display = "none";
+      }
+    }
+
+    function cerrarModal() {
+      const modales = document.querySelectorAll('.modal');
+      modales.forEach(modal => {
+        modal.style.display = 'none';
+      });
+    }
+
+
+    const form = document.getElementById("form_registro");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); // Evita recargar la página
+
+      const formData = new FormData(form);
+      formData.append("accion", "insertar");
+
+      fetch("./api/api_registrar_aspirante.php", {
+        method: "POST",
+        body: formData,
+      })
+        .then(res => {
+          if (!res.ok) {
+            throw new Error(`Error HTTP: ${res.status}`);
+          }
+          return res.json();
+        })
+        .then((data) => {
+          sessionStorage.setItem("usuario", formData.get("nombre"));
+          window.location.href = "jbe_2.html";
+        })
+        .catch((err) => alert("Error al registrar usuario: " + err));
+    });
+  });
+
+</script>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Registro Empresa</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background-color: #e9f8f1;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: #ffffff;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      border-top: 5px solid #00a86b;
+      animation: aparecer 0.4s ease;
+    }
+
+    @keyframes aparecer {
+      from {
+        opacity: 0;
+        transform: translateY(-15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      color: #00a86b;
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #cceede;
+      border-radius: 6px;
+      font-size: 14px;
+      transition: 0.3s ease;
+    }
+
+    .form-group input:focus {
+      border-color: #00a86b;
+      box-shadow: 0 0 5px rgba(0, 168, 107, 0.2);
+      outline: none;
+    }
+
+    .submit-btn {
+      background-color: #00a86b;
+      color: white;
+      padding: 12px;
+      border: none;
+      width: 100%;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      font-size: 15px;
+    }
+
+    .submit-btn:hover {
+      background-color: #00915e;
+      transform: scale(1.02);
+    }
+
+    p {
+      font-size: 14px;
+      color: #333;
+      margin-top: 15px;
+    }
+
+    a {
+      color: #00a86b;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="registroModal" class="modal">
+    <div class="modal-content">
+      <h2>Registrar Empresa</h2>
+      <form id="form_empresa" method="POST" action="./api/api_empresas.php">
+        <div class="form-group">
+          <input type="text" placeholder="Nombre de la empresa" required name="nombre">
+        </div>
+        <div class="form-group">
+          <input type="tel" placeholder="Número de teléfono" required name="telefono">
+        </div>
+        <div class="form-group">
+          <input type="email" placeholder="Correo electrónico" required name="email">
+        </div>
+        <div class="form-group">
+          <input type="password" placeholder="Contraseña" required name="password">
+        </div>
+        <button type="submit" class="submit-btn">Registrar Empresa</button>
+        <p>¿Ya tienes cuenta? <a href="./inicio_sesionEmpresa.html">Iniciar sesión</a></p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("form_empresa");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        formData.append("accion", "insertar");
+
+        try {
+          const data = {
+            accion: "insertar",
+            nombre: form.nombre.value,
+            telefono: form.telefono.value,
+            email: form.email.value,
+            password: form.password.value
+          };
+
+          const response = await fetch("api/api_registrar_empresa.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+          });
+
+
+          const result = await response.json();
+
+          if (result.success) {
+            alert("✅ Registro exitoso: " + result.message);
+            sessionStorage.setItem("empresa", formData.get("nombre"));
+            window.location.href = "index.html";
+          } else {
+            alert("❌ Error al registrar: " + (result.error || "Intenta nuevamente"));
+            console.error(result);
+          }
+
+        } catch (error) {
+          alert("⚠️ Error de conexión con el servidor.");
+          console.error("Error:", error);
+        }
+      });
+    });
+  </script>
+
+</body>
+
+</html>
